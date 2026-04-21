@@ -37,11 +37,14 @@ set_paper_size() {
             if [[ -z "$CURRENT" || "$CURRENT" != "$SIZE" ]]; then
                 # Set size and report errors
                 if lpadmin -p "$PRN" -o PageSize="$SIZE"; then
+                    # Change is needed, so apply update
                     echo -e "  ${GREEN}Updated: $PRN page size from $CURRENT to $SIZE${NC}"
                 else
+                    # And error occured so we need to notify the user
                     echo -e "  ${RED}Error: Failed to update $PRN${NC}"
                 fi
             else
+                # Size is already good, no need to change
                 echo -e "  ${YELLOW}No change: $PRN is already set to $SIZE${NC}"
             fi
         fi
